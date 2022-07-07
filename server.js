@@ -19,6 +19,24 @@ let productsFile = './productos.txt'
 const database = new Contenedor(productsFile)
 
 
+/* RUTAS */
+app.get('/productos',(req,res)=>{
+  database.getAll()
+  .then(data=>res.send(data))
+})
+
+app.get('/productoRandom',(req,res)=>{
+  database.getAll()
+  .then(data=>{
+    let i = Math.floor(Math.random()*data.length)
+    res.send(data[i])
+  })
+})
+
+
+
+
+
 
 
 /* TEST DE LOS METODOS DE LA CLASE */
@@ -31,16 +49,12 @@ const database = new Contenedor(productsFile)
 database.save(productoNuevo)
 .then(data=>console.log(data)) */
 
-
 /* database.getById(5)
 .then(data=>console.log(data)) */
 
-
-database.getAll()
-.then(data=>console.log(data))
-
+/* database.getAll()
+.then(data=>console.log(data)) */
 
 /* database.deleteById(9) */
-
 
 /* database.deleteAll() */
