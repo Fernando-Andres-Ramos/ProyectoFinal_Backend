@@ -1,12 +1,27 @@
+/* Importar clases, librerias y dependencias*/
+const express = require('express')
 const Contenedor = require('./clases')
 
-let productsFile = './productos.txt'
 
+/* Inicializar el servidor con express*/
+const app = express()
+const PORT = 8080
+
+const server = app.listen(PORT,()=>{
+  console.log(`Servidor HTTP escuchando el puerto: ${server.address().port}`)
+})
+
+server.on("error",error=>console.log(`El servidor ha sufrido un problema: ${error}`))
+
+
+/* Inicializado de objeto para manipular bases de datos */
+let productsFile = './productos.txt'
 const database = new Contenedor(productsFile)
 
 
-/* TEST DE LOS METODOS DE LA CLASE */
 
+
+/* TEST DE LOS METODOS DE LA CLASE */
 
 /* const productoNuevo = {
   title:"LUDO",
