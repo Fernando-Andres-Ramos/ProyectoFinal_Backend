@@ -4,9 +4,9 @@
     "node": "^18.4.0",
     "nodemon": "^2.0.19"
   },
-  "name": "desafio_3",
+  "name": "proyecto_final_backend",
   "version": "1.0.0",
-  "description": "desafio para curso backend",
+  "description": "",
   "main": "index.js",
   "devDependencies": {},
   "scripts": {
