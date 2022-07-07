@@ -5,10 +5,11 @@ module.exports = class Contenedor{
     this.path = path
   }
 
+  /* Necesita un objeto producto y devuelve un ID asignado */
   async save(productToSave){
     try{
       const originalContent = await fs.promises.readFile(this.path,'utf-8')
-      if (originalContent){
+      if (originalContent && originalContent.length>0){
         const auxContentList = JSON.parse(originalContent)
         let newID = 0
         for (const product of auxContentList){
@@ -32,12 +33,13 @@ module.exports = class Contenedor{
     }
   }
 
+  /* Necesita un ID para devolver el objeto correspondiente */
   async getById(productId){
     try{
       const originalContent = await fs.promises.readFile(this.path,'utf-8')
       const auxContentList = JSON.parse(originalContent)
       const productToFind = auxContentList.filter((product)=>product.id===parseInt(productId))
-      if(productToFind.length>0)
+      if(productToFind)
         return productToFind
       else
         return null
@@ -47,6 +49,7 @@ module.exports = class Contenedor{
     }
   }
 
+  /* Devuelve la lista completa de objetos */
   async getAll(){
     try{
       const originalContent = await fs.promises.readFile(this.path,'utf-8')
@@ -58,6 +61,7 @@ module.exports = class Contenedor{
     }
   }
 
+  /* Elimina un objeto de la lista por su ID */
   async deleteById(productId){
     try{
       const originalContent = await fs.promises.readFile(this.path,'utf-8')
@@ -70,6 +74,7 @@ module.exports = class Contenedor{
     }
   }
 
+  /* Reemplaza los datos por un array vacio */
   async deleteAll(){
     try{
       const emptyList = []
@@ -79,7 +84,6 @@ module.exports = class Contenedor{
       console.log('Error al intentar eliminar la lista de productos',err)
     }
   }
-
 
   /* metodo extra que cree para ordenar los productos segun su ID  */
   /* async sortById(){
