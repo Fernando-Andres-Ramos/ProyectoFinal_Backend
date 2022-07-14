@@ -19,7 +19,7 @@ function errorRequestById(req,res,next){
       next()
     }
     else
-      res.status(500).send({Error:`Hubo un error al procesar la solicitud`})
+      res.status(500).json({Error:`Hubo un error al procesar la solicitud`})
   })
 }
 
@@ -31,7 +31,7 @@ function noContentById(req,res,next){
     next()
   }
   else
-    res.status(404).send({Error:`Producto no encontrado`})
+    res.status(404).json({Error:`Producto no encontrado`})
 }
 
 
@@ -39,7 +39,7 @@ function noContentById(req,res,next){
 products.route("/productos")
   .get((req,res)=>{
     database.getAll()
-    .then(data=>res.status(200).send(data))
+    .then(data=>res.status(200).json(data))
   })
   .post((req,res)=>{
     const {title,price,thumbnail} = req.body
@@ -47,8 +47,8 @@ products.route("/productos")
     database.save(product)
     .then(data=>{
       data
-      ?res.send({...product,id:data})
-      :res.status(500).send({Error: `Error al cargar el producto`})
+      ?res.json({...product,id:data})
+      :res.status(500).json({Error: `Error al cargar el producto`})
     })
   })
 
@@ -56,7 +56,7 @@ products.route("/productos")
 products.route("/productos/:id")
   .get(errorRequestById,noContentById,(req,res)=>{
     let {existentData} = req
-    res.status(200).send(existentData)
+    res.status(200).json(existentData)
   })
   .put(errorRequestById,noContentById,(req,res)=>{
     let {existentData} = req
@@ -68,7 +68,7 @@ products.route("/productos/:id")
       id: existentData[0].id
     }
     database.updateProduct(updateProduct)
-    .then(res.status(202).send({
+    .then(res.status(202).json({
       Messege:`Producto actualizado`,
       Product: updateProduct
     }))
@@ -76,7 +76,7 @@ products.route("/productos/:id")
   .delete(errorRequestById,noContentById,(req,res)=>{
     let {existentData} = req
     database.deleteById(existentData[0].id)
-    .then(res.status(202).send({Messege:`Producto eliminado`}))
+    .then(res.status(202).json({Messege:`Producto eliminado`}))
   })
 
 
