@@ -8,19 +8,68 @@ const products = Router()
 let productsFile = './productos.txt'
 const database = new Contenedor(productsFile)
 
-/* RUTAS */
-products.get('/productos',(req,res)=>{
-  database.getAll()
-  .then(data=>res.send(data))
-})
 
-products.get('/productoRandom',(req,res)=>{
-  database.getAll()
+/* CUSTOM MIDDLEWARES*/
+/* Handle Error */
+function errorRequestById(req,res,next){
+  database.getById(parseInt(req.params.id))
   .then(data=>{
-    let i = Math.floor(Math.random()*data.length)
-    res.send(data[i])
+    if(data){
+      req.errorRequestData = data
+      next()
+    }
+    else
+      res.status(500).send({Error:`Hubo un error al procesar la solicitud`})
   })
-}) 
+}
+
+/* Handle empty request */
+function noContentById(req,res,next){
+  let {errorRequestData} = req
+  if (req.errorRequestData.length>0){
+    req.isEmptyData = errorRequestData
+    next()
+  }
+  else
+    res.status(404).send({Messege:`El producto buscado no existe`})
+}
+
+
+/* RUTAS */
+products.route("/productos")
+  .get((req,res)=>{
+    database.getAll()
+    .then(data=>res.status(200).send(data))
+  })
+  .post((req,res)=>{
+    const {title,price,thumbnail} = req.body
+    const product = {title,price,thumbnail}
+    database.save(product)
+    .then(data=>{
+      data
+      ?res.send({...product,id:data})
+      :res.status(500).send({Error: `Error al cargar el producto`})
+    })
+  })
+
+products.route("/productos/:id")
+  .get(errorRequestById,noContentById,(req,res)=>{
+    let {isEmptyData} = req
+    res.status(200).send(isEmptyData)
+  })
+  .put(errorRequestById,noContentById,(req,res)=>{
+    let {isEmptyData} = req
+    let productToUpdate = isEmptyData
+    if(req.body.title)
+      productToUpdate.title = req.body.title
+    if(req.body.price)
+      productToUpdate.price = req.body.price
+    if(req.body.thumbnail)
+      productToUpdate.thumbnail = req.body.thumbnail
+    database.updateProduct(productToUpdate)
+    .then(res.status(202).send(`Producto actualizado`))
+  })
+
 
 /* TEST DE LOS METODOS DE LA CLASE */
 
@@ -31,16 +80,5 @@ products.get('/productoRandom',(req,res)=>{
 }
 database.save(productoNuevo)
 .then(data=>console.log(data)) */
-
-/* database.getById(5)
-.then(data=>console.log(data)) */
-
-/* database.getAll()
-.then(data=>console.log(data)) */
-
-/* database.deleteById(9) */
-
-/* database.deleteAll() */
-
 
 module.exports = products

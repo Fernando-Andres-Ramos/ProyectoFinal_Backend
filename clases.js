@@ -85,6 +85,24 @@ module.exports = class Contenedor{
     }
   }
 
+  /* Actualizar un producto */
+  async updateProduct(productUpdated){
+    try{
+      const auxList = await this.getAll()
+      const updatedList = auxList.map(product=>{
+        if(product.id===productUpdated.id)
+          productUpdated
+        else
+          product
+      })
+      fs.writeFileSync(this.path, JSON.stringify(updatedList))
+    }
+    catch(err){
+      console.log('Error al intentar actualizar la lista de productos',err)
+    }
+  }
+
+
   /* metodo extra que cree para ordenar los productos segun su ID  */
   /* async sortById(){
     try{
