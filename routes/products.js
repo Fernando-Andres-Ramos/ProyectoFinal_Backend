@@ -31,7 +31,7 @@ function noContentById(req,res,next){
     next()
   }
   else
-    res.status(404).send({Messege:`El producto buscado no existe`})
+    res.status(404).send({Error:`Producto no encontrado`})
 }
 
 
@@ -72,6 +72,11 @@ products.route("/productos/:id")
       Messege:`Producto actualizado`,
       Product: updateProduct
     }))
+  })
+  .delete(errorRequestById,noContentById,(req,res)=>{
+    let {existentData} = req
+    database.deleteById(existentData[0].id)
+    .then(res.status(202).send({Messege:`Producto eliminado`}))
   })
 
 
