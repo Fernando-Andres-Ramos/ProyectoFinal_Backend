@@ -27,7 +27,7 @@ function errorRequestById(req,res,next){
 function noContentById(req,res,next){
   let {errorRequestData} = req
   if (req.errorRequestData.length>0){
-    req.isEmptyData = errorRequestData
+    req.existentData = errorRequestData
     next()
   }
   else
@@ -52,22 +52,26 @@ products.route("/productos")
     })
   })
 
+
 products.route("/productos/:id")
   .get(errorRequestById,noContentById,(req,res)=>{
-    let {isEmptyData} = req
-    res.status(200).send(isEmptyData)
+    let {existentData} = req
+    res.status(200).send(existentData)
   })
   .put(errorRequestById,noContentById,(req,res)=>{
-    let {isEmptyData} = req
-    let productToUpdate = isEmptyData
-    if(req.body.title)
-      productToUpdate.title = req.body.title
-    if(req.body.price)
-      productToUpdate.price = req.body.price
-    if(req.body.thumbnail)
-      productToUpdate.thumbnail = req.body.thumbnail
-    database.updateProduct(productToUpdate)
-    .then(res.status(202).send(`Producto actualizado`))
+    let {existentData} = req
+    let {title,price,thumbnail} = req.body
+    const updateProduct = {
+      title : title||existentData[0].title,
+      price : price||existentData[0].price,
+      thumbnail : thumbnail||existentData[0].thumbnail,
+      id: existentData[0].id
+    }
+    database.updateProduct(updateProduct)
+    .then(res.status(202).send({
+      Messege:`Producto actualizado`,
+      Product: updateProduct
+    }))
   })
 
 

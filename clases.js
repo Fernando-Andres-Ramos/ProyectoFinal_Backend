@@ -90,10 +90,11 @@ module.exports = class Contenedor{
     try{
       const auxList = await this.getAll()
       const updatedList = auxList.map(product=>{
-        if(product.id===productUpdated.id)
-          productUpdated
+        if(product.id==productUpdated.id){
+          return productUpdated
+        }
         else
-          product
+          return product
       })
       fs.writeFileSync(this.path, JSON.stringify(updatedList))
     }
