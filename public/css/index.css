@@ -1,0 +1,79 @@
+:root{
+  /* Colors */
+  --textColor: #009C8C;
+  --backgroundBodyColor: white;
+  --backgroundFormColor: #f2f3f8;
+  --buttonHoverColor:#27e28b;
+  --buttonSubmitColor:#5867dd;
+  --buttonNavigationColor:#6c757d;
+}
+
+*{
+  padding: 0;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  background-color: var(--backgroundBodyColor);
+}
+
+form{
+  width: 600px;
+  display: flex;
+  flex-flow: row wrap;
+  place-content: center center;
+  color: var(--textColor)
+}
+
+fieldset{
+  width: 100%;
+  height: 600px;
+  display: flex;
+  flex-flow: row wrap;
+  place-content: space-evenly center;
+  text-align: center;
+  font-size: 24px;
+  background-color: var(--backgroundFormColor);
+}
+
+legend{
+  font-size: 32px;
+}
+
+label{
+  width: 100%;
+}
+
+input{
+  width: 50%;
+  height: 30px;
+  font-size: 28px;
+}
+
+#buttonSubmit{
+  width: 50%;
+  height: 50px;
+  text-decoration: none;
+  background-color:#5867dd;
+  border: 2px solid #5867dd;
+  border-radius: 3px;
+  color: white;
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 25px;
+  cursor:pointer;
+  text-align: center;
+}
+
+#buttonSubmit:hover{
+  background-color: var(--buttonHoverColor);
+  border: 2px solid var(--buttonHoverColor);
+  color: var(--backgroundBodyColor);
+}
+

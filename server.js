@@ -15,7 +15,7 @@ server.on("error",error=>console.log(`El servidor ha sufrido un problema: ${erro
 /* Middlewares */
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(express.static('public'))
+app.use('/api/ingresos',express.static('public'))
 
 
 /* Acceso a las rutas */
