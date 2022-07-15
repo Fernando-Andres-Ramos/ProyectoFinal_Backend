@@ -5,18 +5,15 @@ module.exports = class Contenedor{
     this.path = path
   }
 
+  newId = list => list[list.length-1].id+1
+
   /* Necesita un objeto producto y devuelve un ID asignado */
   async save(productToSave){
     try{
       const originalContent = await fs.promises.readFile(this.path,'utf-8')
       if (originalContent && originalContent.length>0){
         const auxContentList = JSON.parse(originalContent)
-        let newID = 0
-        for (const product of auxContentList){
-          if (product.id>newID)
-            newID = product.id
-        }
-        Object.assign(productToSave,{id:(newID+1)})
+        Object.assign(productToSave,{id:this.newId(auxContentList)})
         auxContentList.push(productToSave)
         fs.writeFileSync(this.path, JSON.stringify(auxContentList))
         return productToSave.id
