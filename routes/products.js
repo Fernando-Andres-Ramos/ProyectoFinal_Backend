@@ -35,7 +35,7 @@ function noContentById(req,res,next){
 }
 
 
-/* RUTAS */
+/* Rutas */
 products.route("/productos")
   .get((req,res)=>{
     database.getAll()
@@ -52,12 +52,14 @@ products.route("/productos")
     })
   })
 
-
+/* Rutas que requieren ID */
 products.route("/productos/:id")
+
   .get(errorRequestById,noContentById,(req,res)=>{
     let {existentData} = req
     res.status(200).json(existentData)
   })
+
   .put(errorRequestById,noContentById,(req,res)=>{
     let {existentData} = req
     let {title,price,thumbnail} = req.body
@@ -73,21 +75,11 @@ products.route("/productos/:id")
       Product: updateProduct
     }))
   })
+
   .delete(errorRequestById,noContentById,(req,res)=>{
     let {existentData} = req
     database.deleteById(existentData[0].id)
     .then(res.status(202).json({Messege:`Producto eliminado`}))
   })
-
-
-/* TEST DE LOS METODOS DE LA CLASE */
-
-/* const productoNuevo = {
-  title:"LUDO",
-  price:800,
-  thumbnail:"https://img.freepik.com/psd-gratis/maqueta-tablero-ludo_1332-10389.jpg?w=2000"
-}
-database.save(productoNuevo)
-.then(data=>console.log(data)) */
 
 module.exports = products

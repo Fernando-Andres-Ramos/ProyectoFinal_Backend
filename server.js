@@ -29,7 +29,3 @@ app.use('/api',products)
 
 
 
-
-
-
-
