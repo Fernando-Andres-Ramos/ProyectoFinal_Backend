@@ -1,7 +1,6 @@
 /* Importar clases, librerias y dependencias*/
 const express = require('express')
-const products = require('./routes/products')
-
+const router = require('./routes')
 
 /* Inicializar el servidor con express*/
 const app = express()
@@ -19,7 +18,7 @@ app.use('/api/ingresos',express.static('public'))
 
 
 /* Acceso a las rutas */
-app.use('/api',products)
+app.use('/api',router)
 
 
 

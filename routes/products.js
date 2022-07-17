@@ -36,7 +36,7 @@ function noContentById(req,res,next){
 
 
 /* Rutas */
-products.route("/productos")
+products.route("/")
   .get((req,res)=>{
     database.getAll()
     .then(data=>res.status(200).json(data))
@@ -53,7 +53,7 @@ products.route("/productos")
   })
 
 /* Rutas que requieren ID */
-products.route("/productos/:id")
+products.route("/:id")
 
   .get(errorRequestById,noContentById,(req,res)=>{
     let {existentData} = req
