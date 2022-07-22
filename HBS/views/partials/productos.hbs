@@ -1,0 +1,40 @@
+<div class="linkContainer">
+  <a
+    class="buttonNavegation"
+    href="http://localhost:8080/api">
+    Cargar mas productos
+  </a>
+</div>
+<table class="products-table">
+  <thead>
+    <tr>
+      <th class="products-tableColumn">Nombre</th>
+      <th class="products-tableColumn">Precio</th>
+      <th class="products-tableColumn">Imagen</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{!-- You can use the if helper to conditionally render a block. 
+    If its argument returns false, undefined, null, "", 0, or [], 
+    Handlebars will not render the block. --}}
+    {{#if data}}
+      {{#each data}}
+      <tr>
+        <td class="products-tableColumn">{{this.title}}</td>
+        <td class="products-tableColumn">${{this.price}}</td>
+        <td class="products-tableColumn">
+          <div class="table-imgContainer">
+            <img class="table-img" src={{this.thumbnail}} alt="juegoImg">
+          </div>
+        </td>
+      </tr>
+      {{/each}}
+    {{else}}
+      <tr>
+        <td>
+          <span>No hay productos disponibles</span>
+        </td>
+      </tr>
+    {{/if}}
+  </tbody>
+</table>
