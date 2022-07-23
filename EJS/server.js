@@ -10,9 +10,7 @@ const server = app.listen(PORT,()=>{
 })
 server.on("error",error=>console.log(`El servidor ha sufrido un problema: ${error}`))
 
-app.set("view engine", "pug"); // registra el motor de plantillas
-app.set("views", "./views/layouts"); // especifica el directorio de vistas
-
+app.set('view engine', 'ejs') // registra el motor de plantillas
 
 /* Middlewares */
 app.use(express.json())

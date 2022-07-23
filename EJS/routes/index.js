@@ -1,11 +1,11 @@
 /* Importar clases, librerias y dependencias*/
 const {Router} = require('express')
 const router = Router()
-const productsPUG = require('./routesPUG')
+const productsEJS = require('./routesEJS')
 
 
 /* Punto de acceso a las rutas */
-router.use('/productos',productsPUG)
+router.use('/productos',productsEJS)
 
 
 /* Exportar ruta general */

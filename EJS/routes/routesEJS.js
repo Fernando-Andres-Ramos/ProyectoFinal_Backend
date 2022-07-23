@@ -1,17 +1,17 @@
 /* Importar clases, librerias y dependencias*/
 const {Router} = require('express')
 const Contenedor = require('../clases')
-const productsPUG = Router()
+const productsEJS = Router()
 
 /* Inicialización de variables */
 let productsFile = './productos.txt'
 const database = new Contenedor(productsFile)
 
 /* Rutas */
-productsPUG.route("/")
+productsEJS.route("/")
   .get((req,res)=>{
     database.getAll()
-    .then(data=>res.status(200).render('productos.pug',{productos:data}))
+    .then(data=>res.status(200).render('layouts/index',{productos:data}))
     .catch(err=>res.send(console.log(`Ha ocurrido un error:${err}`)))
   })
   .post((req,res)=>{
@@ -26,4 +26,4 @@ productsPUG.route("/")
     .catch(err=>res.send(console.log(`Ha ocurrido un error:${err}`)))
   })
 
-module.exports = productsPUG
+module.exports = productsEJS
