@@ -11,7 +11,7 @@ module.exports = class Contenedor{
   async save(productToSave){
     try{
       const originalContent = await fs.promises.readFile(this.path,'utf-8')
-      if (originalContent && originalContent.length>0){
+      if (originalContent && JSON.parse(originalContent).length>0){
         const auxContentList = JSON.parse(originalContent)
         Object.assign(productToSave,{id:this.newId(auxContentList)})
         auxContentList.push(productToSave)
@@ -50,10 +50,14 @@ module.exports = class Contenedor{
   async getAll(){
     try{
       const originalContent = await fs.promises.readFile(this.path,'utf-8')
-      const auxContentList = JSON.parse(originalContent)
-      return auxContentList
+      if(originalContent){
+        const auxContentList = JSON.parse(originalContent)
+        return auxContentList
+      }
+      else
+        return []
     }
-    catch{
+    catch(err){
       console.log('Error al intentar encontrar la lista de productos',err)
     }
   }
@@ -66,7 +70,7 @@ module.exports = class Contenedor{
       const listWithProductDeleted = auxContentList.filter((product)=>product.id!==parseInt(productId))
       fs.promises.writeFile(this.path,JSON.stringify(listWithProductDeleted))
     }
-    catch{
+    catch(err){
       console.log('Error al intentar eliminar el producto',err)
     }
   }
@@ -77,7 +81,7 @@ module.exports = class Contenedor{
       const emptyList = []
       await fs.promises.writeFile(this.path,JSON.stringify(emptyList))
     }
-    catch{
+    catch(err){
       console.log('Error al intentar eliminar la lista de productos',err)
     }
   }
