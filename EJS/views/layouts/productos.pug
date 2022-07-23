@@ -1,0 +1,29 @@
+html
+    head 
+        title Plantilla Pug
+        style 
+          include ../../public/css/index.css
+    body 
+      div.linkContainer
+        a(class='buttonNavegation' href='http://localhost:8080/api') Cargar mas productos
+      table.products-table
+        thead 
+          tr 
+            th.products-tableColumn Nombre
+            th.products-tableColumn Precio
+            th.products-tableColumn Imagen
+        tbody 
+          if(productos.length !== 0)
+            each dato in productos
+              tr
+                td.products-tableColumn=dato.title 
+                td.products-tableColumn=`$${dato.price}`
+                td.products-tableColumn
+                  div.table-imgContainer
+                  img(class="table-img", src=dato.thumbnail, alt="juegoImg")
+          else 
+            tr 
+              td
+                span No hay productos disponibles
+
+        

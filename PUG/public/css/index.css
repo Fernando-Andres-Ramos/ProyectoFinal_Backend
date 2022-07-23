@@ -1,0 +1,135 @@
+:root{
+  /* Colors */
+  --textColor: #009C8C;
+  --backgroundBodyColor: white;
+  --backgroundFormColor: #f2f3f8;
+  --buttonHoverColor:#27e28b;
+  --buttonSubmitColor:#5867dd;
+  --buttonNavigationColor:#6c757d;
+}
+
+*{
+  padding: 0;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+  width: 100vw;
+  display: flex;
+  flex-flow: row wrap;
+  place-content: start center;
+  background-color: var(--backgroundBodyColor);
+}
+
+form{
+  width: 600px;
+  display: flex;
+  flex-flow: row wrap;
+  place-content: center center;
+  color: var(--textColor)
+}
+
+fieldset{
+  width: 100%;
+  height: 600px;
+  display: flex;
+  flex-flow: row wrap;
+  place-content: space-evenly center;
+  text-align: center;
+  font-size: 24px;
+  background-color: var(--backgroundFormColor);
+}
+
+legend{
+  font-size: 32px;
+}
+
+label{
+  width: 100%;
+}
+
+input{
+  width: 50%;
+  height: 30px;
+  font-size: 28px;
+}
+
+.buttonSubmit,.buttonNavegation{
+  max-width: 300px;
+  height: 50px;
+  padding: 5px;
+  text-decoration: none;
+  background-color: var(--buttonSubmitColor);
+  border: 2px solid var(--buttonSubmitColor);
+  border-radius: 3px;
+  color: white;
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor:pointer;
+  text-align: center;
+}
+
+.buttonSubmit:hover{
+  background-color: var(--buttonHoverColor);
+  border: 2px solid var(--buttonHoverColor);
+  color: var(--backgroundBodyColor);
+}
+
+.buttonNavegation:hover{
+  background-color: var(--buttonNavigationColor);
+  border: 2px solid var(--buttonNavigationColor);
+  color: var(--backgroundBodyColor);
+}
+
+.linkContainer{
+  width: 100%;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  place-content: center center;
+  background-color: var(--backgroundBodyColor);
+  margin: 25px 0;
+  position: sticky;
+  top: -1px;
+}
+
+.products-table{
+  width: 50vw;
+  font-size: 22px;
+  text-align: center;
+  color: var(--textColor);
+  border-spacing: 20px;
+  border: outset;
+  background-color: var(--backgroundFormColor);
+}
+
+@media (max-width: 1024px){
+  .products-table{
+    width: 70vw;
+  }
+}
+
+@media (max-width: 768px){
+  .products-table{
+    width: 90vw;
+  }
+}
+
+.products-tableColumn{
+  width: 33%;
+}
+
+.table-imgContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.table-img{
+  max-width: 200px;
+  max-height: 200px;
+  object-fit: fill;
+}
